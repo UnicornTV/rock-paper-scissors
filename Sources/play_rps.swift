@@ -56,7 +56,7 @@ func damageCalc(_ player: Player, _ enemy: Enemy)
   if player.speed > enemy.speed
   {
     enemy.health -= (player.attack - enemy.defense)
-    print("Your attacker's heath is now \(enemy.health)")
+    print("Your attacker's health is now \(enemy.health)")
     if enemy.health > 0{
       player.health -= enemy.attack
       print("Your health is now \(player.health)")
@@ -66,6 +66,6 @@ func damageCalc(_ player: Player, _ enemy: Enemy)
     player.health -= (enemy.attack - player.defense)
     print("Your health is now \(player.health)")
     enemy.health -= (player.attack - enemy.defense)
-    print("Your attacker's heath is now \(enemy.health)")
+    print("Your attacker's health is now \(enemy.health)")
   }
 }
