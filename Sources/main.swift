@@ -13,33 +13,10 @@ struct RPS {
   static let scissors: String = "scissors"
 }
 
-let stringOfAst = "**************"
-let stringOfHash = "#############"
-let stringOfDollar = "$$$$$$$$$$$$$"
-let stringOfCarat = "^^^^^^^^^^^^^^"
-
-let separatorArray = [stringOfAst, stringOfHash, stringOfCarat, stringOfDollar]
-
 var gameState: GameState = .begin
+var player: Player = Player()
 var playerName: String = ""
 var hasQuit = false
-
-func getInput() -> String{
-  let keyboard = FileHandle.standardInput
-  let inputData = keyboard.availableData
-  let strData = String(data: inputData, encoding: String.Encoding.utf8)!
-  return strData.trimmingCharacters(in: CharacterSet.newlines)
-}
-
-func rollDice(_ range: ClosedRange<Int> = 1...6) -> Int{
-    let min = range.lowerBound
-    let max = range.upperBound
-    return Int(arc4random_uniform(UInt32(max - min))) + min
-}
-
-func printRandomSeparator(){
-  print(separatorArray[rollDice(0...3)])
-}
 
 func gameLoop(){
   while !hasQuit{
@@ -69,7 +46,7 @@ func prompt(){
   print("What is your name?")
   let name = getInput()
   if name != ""{
-    playerName = name
+    player = Player.init(name)
     gameState = .instructions
   }else{
     print("Why you playing games?")
@@ -94,12 +71,14 @@ func printInstructions(){
 }
 
 func handleInstructions(){
+  player.showStats()
   print(
-    "Ok boyfriend, er- \(playerName)- if you know how to play\n" +
+    "Ok boyfriend, er- \(player.name)- if you know how to play\n" +
     "then type 'p' to start, if you would like to\n" +
     "read the instructions, type 'i',\n" +
     "if you would like to quit, type 'q'."
   )
+
   let option = getInput()
   if option == "q" || option == "quit"{
     hasQuit = true

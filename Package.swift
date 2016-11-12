@@ -1,3 +1,5 @@
 import PackageDescription
 
-package
+let package = Package(
+    name: "RPS"
+)
