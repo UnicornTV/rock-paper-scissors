@@ -41,6 +41,7 @@ public class Player
       "Defense = \(self.defense) / 6\n" +
       "Speed = \(self.speed) / 6"
     )
+    printRandomSeparator()
   }
 }
 

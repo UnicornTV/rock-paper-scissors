@@ -15,7 +15,7 @@ struct RPS {
 
 var gameState: GameState = .begin
 var player: Player = Player()
-var playerName: String = ""
+var rerollCount: Int = 3
 var hasQuit = false
 
 func gameLoop(){
@@ -73,20 +73,39 @@ func printInstructions(){
 func handleInstructions(){
   player.showStats()
   print(
-    "Ok boyfriend, er- \(player.name)- if you know how to play\n" +
-    "then type 'p' to start, if you would like to\n" +
-    "read the instructions, type 'i',\n" +
+    "Ok boyfriend, er- \(player.name)\n" +
+    "if you know how to play then type 'p',\n" +
+    "if you would like to read the instructions, type 'i',\n" +
+    "if you would like to reroll, type 'r',\n" +
     "if you would like to quit, type 'q'."
   )
 
   let option = getInput()
-  if option == "q" || option == "quit"{
+  if option == "q" || option == "quit"
+  {
     hasQuit = true
-  }else if option == "i"{
+  }
+  else if option == "i"
+  {
     printInstructions()
-  }else if option == "p"{
+  }
+  else if option == "p"
+  {
     gameState = .play
-  }else{
+  }
+  else if option == "r"
+  {
+    if rerollCount > 0
+    {
+      player.reroll()
+      rerollCount -= 1
+      print("\(rerollCount) rerolls left\n")
+    }else
+    {
+      print("Ya used up all ur rerolls. Ya Blew It.\n")
+    }
+  }
+  else{
     print("Not a valid option, please try again.")
     hasQuit = true
   }
