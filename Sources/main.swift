@@ -7,12 +7,6 @@ enum GameState {
   case gameOver
 }
 
-struct RPS {
-  static let rock: String = "rock"
-  static let paper: String = "paper"
-  static let scissors: String = "scissors"
-}
-
 var gameState: GameState = .begin
 var player: Player = Player()
 var rerollCount: Int = 3
@@ -27,7 +21,7 @@ func gameLoop(){
         handleInstructions()
         printRandomSeparator()
       case .play:
-        break
+        battleHUD()
       case .gameOver:
         break
     }

@@ -7,6 +7,7 @@ public class Player
   public var defense: Int
   public var speed: Int
   public var name: String
+  public var attackChoice: String
 
   init()
   {
@@ -14,15 +15,17 @@ public class Player
     self.attack = 0
     self.defense = 0
     self.speed = 0
+    self.attackChoice = ""
     self.name = ""
   }
 
   init(_ name: String)
   {
     self.health = rollDice(20...25)
-    self.attack = rollDice()
-    self.defense = rollDice()
-    self.speed = rollDice()
+    self.attack = rollDice(4...8)
+    self.defense = rollDice(4...8)
+    self.speed = rollDice(4...8)
+    self.attackChoice = ""
     self.name = name
   }
 
@@ -36,13 +39,14 @@ public class Player
   func showStats(){
     print(
       "It seems as if your stats are:\n" +
-      "HP = \(self.health) / 25\n" +
-      "Attack = \(self.attack) / 6\n" +
-      "Defense = \(self.defense) / 6\n" +
-      "Speed = \(self.speed) / 6"
+      "HP = \(self.health)\n" +
+      "Attack = \(self.attack)\n" +
+      "Defense = \(self.defense)\n" +
+      "Speed = \(self.speed)"
     )
     printRandomSeparator()
   }
+
 }
 
   public class Enemy
@@ -52,16 +56,22 @@ public class Player
     public var defense: Int
     public var speed: Int
     public var gimmick: String
+    public var name: String
+    public var attackChoice: String
 
     init(type: String = "regular")
     {
       if type == "rock"{
+        self.attackChoice = RPS.rock
+        self.name = "Rock Person"
         self.health = rollDice(25...30)
         self.attack = rollDice(3...6)
         self.defense = rollDice(3...6)
-        self.speed = rollDice(0...1)
+        self.speed = rollDice(0...4)
         self.gimmick = "Gets a crit on rock attacks, not very fast"
       }else{
+        self.attackChoice = RPS.paper
+        self.name = "Cretin"
         self.health = rollDice(3...5)
         self.attack = rollDice(0...3)
         self.defense = rollDice(0...3)
@@ -70,4 +80,30 @@ public class Player
       }
 
     }
+
+    func showStats(){
+      print(
+        "It seems as if this enemy has these stats:\n" +
+        "HP = \(self.health)\n" +
+        "Attack = \(self.attack)\n" +
+        "Defense = \(self.defense)\n" +
+        "Speed = \(self.speed)"
+      )
   }
+
+  func attacks()
+  {
+      let weapon = rollDice(0...2)
+      if weapon == 0
+      {
+        self.attackChoice = RPS.rock
+      }else if weapon == 1
+      {
+        self.attackChoice = RPS.paper
+      }else
+      {
+        self.attackChoice = RPS.scissors
+      }
+  }
+
+}
