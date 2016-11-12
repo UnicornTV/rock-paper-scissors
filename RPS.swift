@@ -32,14 +32,19 @@ func getInput() -> String{
   return strData.trimmingCharacters(in: CharacterSet.newlines)
 }
 
-func rollDice(_ n: Int) -> Int{
+func randomWithZero(_ n: Int) -> Int{
   let randomUI = UInt32(n)
   let random = Int(arc4random_uniform(randomUI))
   return random
 }
+func rollDice(_ n: Int) -> Int{
+    let randomUI = UInt32(n)
+    let random = Int(arc4random_uniform(randomUI) + 1)
+    return random
+}
 
 func printRandomSep(){
-  print(separatorArray[rollDice(3)])
+  print(separatorArray[randomWithZero(3)])
 }
 
 func gameLoop(){
