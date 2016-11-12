@@ -32,30 +32,21 @@ func getInput() -> String{
   return strData.trimmingCharacters(in: CharacterSet.newlines)
 }
 
-func randomWithZero(_ n: Int) -> Int{
-  let randomUI = UInt32(n)
-  let random = Int(arc4random_uniform(randomUI))
-  return random
-}
-func rollDice(_ n: Int) -> Int{
-    let randomUI = UInt32(n)
-    let random = Int(arc4random_uniform(randomUI) + 1)
-    return random
+func rollDice(_ range: ClosedRange<Int> = 1...6) -> Int{
+    let min = range.lowerBound
+    let max = range.upperBound
+    return Int(arc4random_uniform(UInt32(max - min))) + min
 }
 
 func printRandomSep(){
-  print(separatorArray[randomWithZero(3)])
+  print(separatorArray[rollDice(0...3)])
 }
 
 func gameLoop(){
   while !hasQuit{
     switch gameState{
       case .begin:
-        printRandomSep()
-        print("Hi, hello, welcome to the terminal Rock/Paper/Scissors Game")
-        printRandomSep()
-        prompt()
-        printRandomSep()
+        startGame()
       case .instructions:
         handleInstructions()
         printRandomSep()
@@ -67,6 +58,13 @@ func gameLoop(){
   }
 }
 
+func startGame(){
+  printRandomSep()
+  print("Hi, hello, welcome to the terminal Rock/Paper/Scissors Game")
+  printRandomSep()
+  prompt()
+  printRandomSep()
+}
 
 func prompt(){
   print("What is your name?")
