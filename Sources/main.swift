@@ -13,7 +13,6 @@ struct RPS {
   static let scissors: String = "scissors"
 }
 
-
 let stringOfAst = "**************"
 let stringOfHash = "#############"
 let stringOfDollar = "$$$$$$$$$$$$$"
@@ -38,7 +37,7 @@ func rollDice(_ range: ClosedRange<Int> = 1...6) -> Int{
     return Int(arc4random_uniform(UInt32(max - min))) + min
 }
 
-func printRandomSep(){
+func printRandomSeparator(){
   print(separatorArray[rollDice(0...3)])
 }
 
@@ -49,7 +48,7 @@ func gameLoop(){
         startGame()
       case .instructions:
         handleInstructions()
-        printRandomSep()
+        printRandomSeparator()
       case .play:
         break
       case .gameOver:
@@ -59,11 +58,11 @@ func gameLoop(){
 }
 
 func startGame(){
-  printRandomSep()
+  printRandomSeparator()
   print("Hi, hello, welcome to the terminal Rock/Paper/Scissors Game")
-  printRandomSep()
+  printRandomSeparator()
   prompt()
-  printRandomSep()
+  printRandomSeparator()
 }
 
 func prompt(){
@@ -89,10 +88,9 @@ func printInstructions(){
                       "HP drops to 0, you perish- recover your HP with\n" +
                       "consecutive successful attacks. Type 'r', 'p', or 's'\n" +
                       "to attack with the respective fist form.\n"
-  printRandomSep()
+  printRandomSeparator()
   print(instructions)
-  printRandomSep()
-
+  printRandomSeparator()
 }
 
 func handleInstructions(){
